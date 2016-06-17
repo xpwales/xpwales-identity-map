@@ -1,5 +1,5 @@
 {
-  "name": "xpwales/xpwales-identity",
+  "name": "xpwales/xpwales-identity-map",
   "license": "BSD-3-Clause",
   "require-dev": {
     "phpunit/PHPUnit": "~4.0"
