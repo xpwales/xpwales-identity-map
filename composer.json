@@ -6,7 +6,7 @@
   },
   "require": {
     "php": ">=5.5",
-    "xpwales/xpwales-identity-map": "dev-master"
+    "xpwales/xpwales-identity": "dev-master"
   },
   "autoload": {
     "psr-4": {
