@@ -12,14 +12,14 @@ interface IdentityMapInterface
      *
      * @return bool
      */
-    public function attach(IdentityInterface $identity, $entity);
+    public function add(IdentityInterface $identity, $entity);
 
     /**
      * @param IdentityInterface $identity
      *
      * @return bool
      */
-    public function detach(IdentityInterface $identity);
+    public function remove(IdentityInterface $identity);
 
     /**
      * @param IdentityInterface $identity

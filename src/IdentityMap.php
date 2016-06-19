@@ -17,7 +17,7 @@ class IdentityMap implements IdentityMapInterface
      *
      * @throws Exception\InvalidArgumentException on non-object entity param
      */
-    public function attach(IdentityInterface $identity, $entity)
+    public function add(IdentityInterface $identity, $entity)
     {
         $idKey = $this->assembleIdKey($identity);
 
@@ -37,7 +37,7 @@ class IdentityMap implements IdentityMapInterface
     /**
      * @inheritdoc
      */
-    public function detach(IdentityInterface $identity)
+    public function remove(IdentityInterface $identity)
     {
         $idKey = $this->assembleIdKey($identity);
 
