@@ -3,6 +3,7 @@
 namespace Xpwales\IdentityMap;
 
 use Xpwales\Identity\Identity\IdentityInterface;
+use Xpwales\Identity\Utils\IdentityUtils;
 use Xpwales\IdentityMap\Exception;
 
 class IdentityMap implements IdentityMapInterface
@@ -72,19 +73,7 @@ class IdentityMap implements IdentityMapInterface
      */
     private function assembleIdKey(IdentityInterface $identity)
     {
-        if ($identity->isComplete() === false) {
-            $msg = 'Identity must be complete for ID key assembly';
-            throw new Exception\InvalidArgumentException($msg);
-        }
-
-        $idKeyArr   = [];
-        $idKeyArr[] = $identity->getDomainspace();
-
-        foreach ($identity->getValues() as $value) {
-            $idKeyArr[] = $value;
-        }//end loop
-
-        $idKey = implode('_', $idKeyArr);
+        $idKey = IdentityUtils::assembleIdKey($identity);
 
         return $idKey;
     }
