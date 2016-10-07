@@ -3,28 +3,24 @@
 namespace Xpwales\IdentityMap;
 
 use Xpwales\Identity\Identity\IdentityInterface;
+use Xpwales\Identity\IdentityAware\IdentityAwareInterface;
 
 interface IdentityMapInterface
 {
     /**
-     * @param IdentityInterface $identity
-     * @param \stdClass         $entity
-     *
-     * @return bool
+     * @param IdentityAwareInterface $object
      */
-    public function add(IdentityInterface $identity, $entity);
+    public function add(IdentityAwareInterface $object);
+
+    /**
+     * @param IdentityAwareInterface $identity
+     */
+    public function remove(IdentityAwareInterface $object);
 
     /**
      * @param IdentityInterface $identity
      *
-     * @return bool
-     */
-    public function remove(IdentityInterface $identity);
-
-    /**
-     * @param IdentityInterface $identity
-     *
-     * @return mixed|null
+     * @return object|null
      */
     public function find(IdentityInterface $identity);
     

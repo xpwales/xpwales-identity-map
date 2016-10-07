@@ -3,8 +3,8 @@
 namespace Xpwales\IdentityMap;
 
 use Xpwales\Identity\Identity\IdentityInterface;
+use Xpwales\Identity\IdentityAware\IdentityAwareInterface;
 use Xpwales\Identity\Utils\IdentityUtils;
-use Xpwales\IdentityMap\Exception;
 
 class IdentityMap implements IdentityMapInterface
 {
@@ -15,39 +15,23 @@ class IdentityMap implements IdentityMapInterface
 
     /**
      * @inheritdoc
-     *
-     * @throws Exception\InvalidArgumentException on non-object entity param
      */
-    public function add(IdentityInterface $identity, $entity)
+    public function add(IdentityAwareInterface $object)
     {
-        $idKey = $this->assembleIdKey($identity);
-
-        if (is_object($entity) === false) {
-            $msg = sprintf('Entity must be an object, %s given', gettype($entity));
-            throw new Exception\InvalidArgumentException($msg);
-        }
-
-        if (array_key_exists($idKey, $this->entities) === false) {
-            $this->entities[$idKey] = $entity;
-            return true;
-        }
-
-        return false;
+        $idKey                  = $this->assembleIdKey($object->getIdentity());
+        $this->entities[$idKey] = $object;
     }
 
     /**
      * @inheritdoc
      */
-    public function remove(IdentityInterface $identity)
+    public function remove(IdentityAwareInterface $object)
     {
-        $idKey = $this->assembleIdKey($identity);
+        $idKey = $this->assembleIdKey($object->getIdentity());
 
         if (array_key_exists($idKey, $this->entities) === true) {
             unset($this->entities[$idKey]);
-            return true;
         }
-
-        return false;
     }
 
     /**
@@ -67,13 +51,11 @@ class IdentityMap implements IdentityMapInterface
     /**
      * @param IdentityInterface $identity
      *
-     * @throws Exception\InvalidArgumentException on incomplete identity
-     *
      * @return string
      */
     private function assembleIdKey(IdentityInterface $identity)
     {
-        $idKey = IdentityUtils::assembleIdKey($identity);
+        $idKey = IdentityUtils::assembleKey($identity);
 
         return $idKey;
     }
